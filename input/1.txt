@@ -1,0 +1,18 @@
+# String started with - comment
+# p - field modulus
+97
+# a - coefficient for curve
+2
+# b - coefficient for curve
+3
+# у - multiply
+у 3 6 1
+у 3 6 2
+у 3 6 3
+у 3 6 4
+у 3 6 5
+у 3 6 6
+у 3 6 7
+у 3 6 8
+у 3 6 9
+у 3 6 10
