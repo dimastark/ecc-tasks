@@ -8,7 +8,7 @@ from point import Point
 from polynomial import Polynomial
 
 
-BASE_DIR = os.path.dirname(__file__)
+BASE_DIR = path.dirname(__file__)
 INPUT_DIR = path.join(BASE_DIR, 'input')
 OUTPUT_DIR = path.join(BASE_DIR, 'output')
 
@@ -28,7 +28,7 @@ def get_all_inputs() -> List[Tuple[str, dict]]:
 def parse_input(from_file: str) -> dict:
     result = {}
 
-    with open(from_file) as input_file:
+    with open(from_file, encoding='utf-8') as input_file:
         result['kind'] = next_line(input_file)
 
         if result['kind'] in ('2s', '2n'):
@@ -58,7 +58,7 @@ def next_line(file) -> str:
 
 
 def read_lines(file) -> List[str]:
-    return [line for line in file.readlines() if not line.startswith('#')]
+    return [line.strip().lower() for line in file.readlines() if not line.startswith('#')]
 
 
 def parse_polynomial(s: str) -> Polynomial:
