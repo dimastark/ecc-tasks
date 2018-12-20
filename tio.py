@@ -2,9 +2,9 @@ import os
 import re
 
 from os import path
-from typing import List, Tuple
+# from typing import List, Tuple
 
-from point import Point
+# from point import Point
 from polynomial import Polynomial
 
 
@@ -13,7 +13,8 @@ INPUT_DIR = path.join(BASE_DIR, 'input')
 OUTPUT_DIR = path.join(BASE_DIR, 'output')
 
 
-def get_all_inputs() -> List[Tuple[str, dict]]:
+# def get_all_inputs() -> List[Tuple[str, dict]]:
+def get_all_inputs():
     result = []
 
     for file in os.listdir(INPUT_DIR):
@@ -49,16 +50,17 @@ def parse_input(from_file: str) -> dict:
 
 
 def next_line(file) -> str:
-    line = file.readline().strip().lower()
+    line = file.readline().strip().lower().replace('\ufeff', '')
 
     while line.startswith('#'):
-        line = file.readline().strip().lower()
+        line = file.readline().strip().lower().replace('\ufeff', '')
 
     return line
 
 
-def read_lines(file) -> List[str]:
-    return [line.strip().lower() for line in file.readlines() if not line.startswith('#')]
+# def read_lines(file) -> List[str]:
+def read_lines(file):
+    return [line.strip().lower().replace('\ufeff', '') for line in file.readlines() if not line.startswith('#')]
 
 
 def parse_polynomial(s: str) -> Polynomial:
@@ -75,7 +77,8 @@ def parse_polynomial(s: str) -> Polynomial:
     return p
 
 
-def parse_tasks(curve_type: str, lines: List[str]) -> List[tuple]:
+# def parse_tasks(curve_type: str, lines: List[str]) -> List[tuple]:
+def parse_tasks(curve_type, lines):
     result = []
 
     for line in lines:
@@ -85,14 +88,16 @@ def parse_tasks(curve_type: str, lines: List[str]) -> List[tuple]:
 
         ops_count = 3 if kind.lower() == 'у' else 4
 
-        assert len(ops) == ops_count, f'Количество операндов != {ops_count}'
+        # assert len(ops) == ops_count, f'Количество операндов != {ops_count}'
+        assert len(ops) == ops_count, 'Количество операндов != {}'.format(ops_count)
 
         args = [parse_int(o) for o in ops]
 
         if curve_type in ('2s', '2n'):
             args = [Polynomial(arg) for arg in args]
 
-        result.append((kind.lower(), *args))
+        # result.append((kind.lower(), *args))
+        result.append([kind.lower()] + args)
 
     return result
 
@@ -107,6 +112,7 @@ def parse_int(s: str) -> int:
     return int(s, 10)
 
 
-def write_result(to_file: str, result: List[Point]):
+# def write_result(to_file: str, result: List[Point]):
+def write_result(to_file, result):
     with open(path.join(OUTPUT_DIR, to_file), mode='w') as file:
         file.writelines([str(p) + os.linesep for p in result])

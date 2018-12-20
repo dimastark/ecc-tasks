@@ -1,10 +1,11 @@
-from typing import Callable, Tuple, TypeVar
+# from typing import Callable, Tuple, TypeVar
 
 
-T = TypeVar('T')
+# T = TypeVar('T')
 
 
-def extended_gcd(a: int, b: int) -> Tuple[int, int]:
+# def extended_gcd(a: int, b: int) -> Tuple[int, int]:
+def extended_gcd(a: int, b: int):
     s, old_s = 0, 1
     r, old_r = a, b
 
@@ -19,7 +20,8 @@ def extended_gcd(a: int, b: int) -> Tuple[int, int]:
     return gcd, x
 
 
-def fast_multiply(k: int, start: T, element: T, add: Callable[[T, T], T]) -> T:
+# def fast_multiply(k: int, start: T, element: T, add: Callable[[T, T], T]) -> T:
+def fast_multiply(k: int, start, element, add):
     result = start
     addend = element
 

@@ -1,7 +1,8 @@
-from typing import Union
+# from typing import Union
 
 from field import Field
-from point import Point, PointP, Point2N, Point2S
+# from point import Point, PointP, Point2N, Point2S
+from point import Point
 from polynomial import Polynomial
 from utils import fast_multiply
 
@@ -13,7 +14,7 @@ class CurveP:
         self.a = a
         self.b = b
 
-    def add(self, a: PointP, b: PointP) -> PointP:
+    def add(self, a: Point, b: Point) -> Point:
         if a.is_infinity:
             return b
 
@@ -33,7 +34,7 @@ class CurveP:
 
         return Point(self.field(x3), self.field(-y3))
 
-    def multiply(self, k: int, p: PointP) -> PointP:
+    def multiply(self, k: int, p: Point) -> Point:
         if p.is_infinity:
             return p
 
@@ -42,7 +43,7 @@ class CurveP:
 
         return fast_multiply(k, Point.infinity(), p, self.add)
 
-    def negate(self, p: PointP) -> PointP:
+    def negate(self, p: Point) -> Point:
         if p.is_infinity:
             return p
 
@@ -56,7 +57,7 @@ class Curve2N:
         self.b = b
         self.c = c
 
-    def add(self, a: Point2N, b: Point2N) -> Point2N:
+    def add(self, a: Point, b: Point) -> Point:
         if a.is_infinity:
             return b
 
@@ -77,7 +78,7 @@ class Curve2N:
 
         return Point(x3, y3)
 
-    def multiply(self, k: Polynomial, p: Point2N) -> Point2N:
+    def multiply(self, k: Polynomial, p: Point) -> Point:
         if p.is_infinity:
             return p
 
@@ -89,7 +90,7 @@ class Curve2N:
 
         return fast_multiply(k.bits, Point.infinity(), p, self.add)
 
-    def negate(self, p: Point2N) -> Point2N:
+    def negate(self, p: Point) -> Point:
         if p.is_infinity:
             return p
 
@@ -103,7 +104,7 @@ class Curve2S:
         self.b = b
         self.c = c
 
-    def add(self, a: Point2S, b: Point2S) -> Point2S:
+    def add(self, a: Point, b: Point) -> Point:
         if a.is_infinity:
             return b
 
@@ -124,7 +125,7 @@ class Curve2S:
 
         return Point(x3, y3)
 
-    def multiply(self, k: Polynomial, p: Point2S) -> Point2S:
+    def multiply(self, k: Polynomial, p: Point) -> Point:
         if p.is_infinity:
             return p
 
@@ -136,14 +137,15 @@ class Curve2S:
 
         return fast_multiply(k.bits, Point.infinity(), p, self.add)
 
-    def negate(self, p: Point2S) -> Point2S:
+    def negate(self, p: Point) -> Point:
         if p.is_infinity:
             return p
 
         return Point(p.x, p.y + self.a)
 
 
-def create_curve(kind: str, **kwargs) -> Union[CurveP, Curve2N, Curve2S]:
+# def create_curve(kind: str, **kwargs) -> Union[CurveP, Curve2N, Curve2S]:
+def create_curve(kind: str, **kwargs):
     if kind == '2s':
         return Curve2S(
             p=kwargs['polynomial'],
